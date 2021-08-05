@@ -2,12 +2,20 @@
 
 use System\Router\Web\Route;
 
-Route::get("","HomeController@index","index");
-Route::get("create","HomeController@create","create");
-Route::post("store","HomeController@store","store");
-Route::get("edit/{id}","HomeController@edit","edit");
-Route::get("/update/{id}","HomeController@update","update");
-Route::delete("/delete/{id}","HomeController@destroy","delete");
+Route::get("/","HomeController@index","home.index");
+Route::get("/home","HomeController@index","home.home");
+Route::get("/about","HomeController@about","home.about");
+Route::get("/ads/{id}","HomeController@ads","home.ads");
+Route::get("/ads","HomeController@allAds","home.all.ads");
+Route::get("/posts","HomeController@allPost","home.all.post");
+Route::post("/post/comment/{id}","HomeController@comment","home.post.comment");
+Route::get("/post/{id}","HomeController@post","home.post");
+Route::get("/category/{id}","HomeController@category","home.category");
+Route::get("/search","HomeController@search","home.search");
+
+//ajax
+Route::get('/ajax-last-posts', 'HomeController@ajaxLastPosts', 'home.last.posts');
+
 
 //admin routes
 Route::get('/admin','Admin\AdminController@index','admin.index');
@@ -71,6 +79,19 @@ Route::get('/admin/user/change-status/{id}','Admin\UserController@changeStatus',
 
 //auth routes
 
+Route::get('/login','Auth\LoginController@view','auth.login.view');
+Route::post('/login','Auth\LoginController@login','auth.login');
+
 Route::get('/register','Auth\RegisterController@view','auth.register.view');
 Route::post('/register','Auth\RegisterController@register','auth.register');
 Route::get('/activation/{token}','Auth\RegisterController@activation','auth.activation');
+
+Route::get('/forgot','Auth\ForgotController@view','auth.forgot.password');
+Route::post('/forgot','Auth\ForgotController@forgot','auth.forgot');
+
+Route::get('/reset-password/{token}','Auth\ResetPasswordController@view','auth.reset-password.view');
+Route::post('/reset-password/{token}','Auth\ResetPasswordController@resetPassword','auth.reset-password');
+
+Route::get('/logout','Auth\LogoutController@logout','auth.logout');
+
+

@@ -1,7 +1,7 @@
 @extends('admin.layouts.page')
 
 @section('head-tag')
-    <title>صفحه ثبت نام</title>
+    <title>فراموشی رمز عبور</title>
     <link rel="stylesheet" href="<?= asset('admin-assets/css-rtl/pages/authentication.css') ?>">
 @endsection
 
@@ -26,27 +26,27 @@
                                     </div>
                                 </div>
                                 <p class="px-2 mb-0">لطفا ایمیل خود را وارد کنید. ایمیلی برای شما ارسال خواهد شد که حاوی بک لینک تغییر کلمه عبور است. دقت داشته باشید که لینک فقط 10 دقیقه اعتبار دارد.</p>
-
-                                <div class="alert alert-danger">
-                                    <ul>
-
-                                        <li>
-                                            خطا
-                                        </li>
-
-                                    </ul>
-                                </div>
-
+                                <?php if (errorExists()){ ?>
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            <?php foreach (allErrors() as $error){ ?>
+                                                <li>
+                                                    <?= $error ?>
+                                                </li>
+                                             <?php } ?>
+                                        </ul>
+                                    </div>
+                                <?php  } ?>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form action="" method="post">
+                                        <form action="<?= route('auth.forgot') ?>" method="post">
                                             <div class="form-label-group">
                                                 <input name="email" type="email" id="email" class="form-control" placeholder="ایمیل">
                                                 <label for="email">Email</label>
                                             </div>
 
                                             <div class="float-md-left d-block mb-1">
-                                                <a href="" class="btn btn-outline-primary btn-block px-75">بازگشت به پنل ورود</a>
+                                                <a href="<?= route('auth.login.view') ?>" class="btn btn-outline-primary btn-block px-75">بازگشت به پنل ورود</a>
                                             </div>
                                             <div class="float-md-right d-block mb-1">
                                                 <button type="submit" class="btn btn-primary btn-block px-75">بازیابی رمز</button>

@@ -36,10 +36,10 @@ trait HasValidationRules
 
 
             elseif ($rule == 'email') {
-                $this->confirm($name);
+                $this->email($name);
             }
             elseif ($rule == 'confirmed') {
-                $this->email($name);
+                $this->confirm($name);
             }
 
             elseif ($rule == 'date') {

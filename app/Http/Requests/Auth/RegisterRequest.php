@@ -5,7 +5,8 @@ namespace App\Http\Requests\Auth;
 use System\Request\Request;
 
 class RegisterRequest extends Request{
-    public function rules()
+
+    protected function rules()
     {
         return[
             'email'=>'required|max:64|email|unique:users,email',

@@ -17,5 +17,13 @@ class Categore extends Model
         return $this->belongsTo('App\Categore','parent_id','id');
    }
 
+    public function ads(){
+        return $this->hasMany('\App\Ads','cat_id','id');
+    }
+
+    public function posts(){
+        return $this->hasMany('\App\Post','cat_id','id');
+    }
+
 
 }

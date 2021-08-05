@@ -7,6 +7,7 @@ class Composer
     private static $instance;
     private $vars = [];
     private $viewArray = [];
+    private $registeredViewArray=[];
 
     private function __construct()
     {
@@ -15,17 +16,8 @@ class Composer
 
     private function registerView($name, $callback)
     {
-        if(in_array(str_replace('.', '/', $name), $this->viewArray) || $name == '*')
-        {
-            $viewVars = $callback();
-            foreach($viewVars as $key => $value)
-            {
-                $this->vars[$key] = $value;
-            }
-            if(isset($this->viewArray[$name])){
-                unset($this->viewArray[$name]);
-            }
-        }
+        $this->registeredViewArray[$name]=$callback;
+
 
     }
 
@@ -36,6 +28,15 @@ class Composer
 
     private function getViewVars()
     {
+        foreach ($this->viewArray as $viewName){
+            if (isset($this->registeredViewArray[str_replace('/','.',$viewName)])){
+                $callback=$this->registeredViewArray[str_replace('/','.',$viewName)];
+                $viewVars=$callback();
+                foreach ($viewVars as $key=>$value){
+                    $this->vars[$key]=$value;
+                }
+            }
+        }
         return $this->vars;
     }
 
